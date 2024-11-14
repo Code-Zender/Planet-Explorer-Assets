@@ -1,9 +1,20 @@
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor; // Nur im Editor verfügbar
+#endif
 
-public class TestButtonScript : MonoBehaviour
+public class QuitGameInEditor : MonoBehaviour
 {
-    public void TestFunction()
+    public void Quit()
     {
-        Debug.Log("TestFunction aufgerufen");
+#if UNITY_EDITOR
+        // Stoppt den Play Mode im Editor
+        EditorApplication.isPlaying = false;
+#else
+        // Beendet das Spiel im Build
+        Application.Quit();
+#endif
+
+        Debug.Log("Spiel beendet"); // Meldung zur Überprüfung
     }
 }
